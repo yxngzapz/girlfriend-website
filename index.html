@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff2f4">
+  <title>A Little Story for You ♡</title>
+  <style>
+    :root {
+      --pink: #d86f89;
+      --deep: #743747;
+      --cream: #fff9f5;
+      --rose: #f9dfe5;
+      --ink: #49353a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.95), transparent 28rem),
+        linear-gradient(145deg, #fff8f4, #ffe9ee 55%, #f9dfe5);
+      overflow-x: hidden;
+    }
+    .hearts { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+    .heart {
+      position: absolute; bottom: -40px; color: rgba(216,111,137,.45);
+      animation: floatUp linear forwards; user-select: none;
+    }
+    @keyframes floatUp {
+      from { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: .8; }
+      to { transform: translateY(-115vh) rotate(28deg); opacity: 0; }
+    }
+    main {
+      position: relative; z-index: 1; width: min(720px, calc(100% - 28px));
+      margin: 0 auto; padding: 28px 0 50px;
+    }
+    .topline { text-align: center; color: var(--pink); letter-spacing: .18em; font: 700 11px/1.6 Arial, sans-serif; text-transform: uppercase; }
+    .progress { height: 4px; background: rgba(116,55,71,.12); border-radius: 99px; margin: 16px 0 24px; overflow: hidden; }
+    .progress span { display: block; height: 100%; width: 25%; background: var(--pink); border-radius: inherit; transition: width .5s ease; }
+    .card {
+      background: rgba(255, 251, 248, .88); border: 1px solid rgba(216,111,137,.22);
+      box-shadow: 0 18px 60px rgba(116,55,71,.10); border-radius: 28px;
+      padding: clamp(24px, 6vw, 52px); text-align: center; backdrop-filter: blur(8px);
+      animation: arrive .5s ease both;
+    }
+    @keyframes arrive { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .eyebrow { font: 700 11px/1.5 Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--pink); }
+    h1 { font-size: clamp(34px, 8vw, 58px); line-height: 1.06; font-weight: 500; color: var(--deep); margin: 16px 0; }
+    h2 { font-size: clamp(27px, 6vw, 40px); font-weight: 500; color: var(--deep); line-height: 1.15; margin: 12px 0 18px; }
+    p { font-size: 17px; line-height: 1.75; margin: 12px auto; max-width: 540px; }
+    .small { font-size: 13px; color: #8e6a73; }
+    .button-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    button {
+      border: 0; border-radius: 99px; padding: 14px 23px; min-height: 48px;
+      font: 700 14px Arial, sans-serif; cursor: pointer; transition: transform .18s, box-shadow .18s;
+    }
+    button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(116,55,71,.15); }
+    button:focus-visible { outline: 3px solid #9f4963; outline-offset: 3px; }
+    .primary { color: white; background: linear-gradient(135deg, #d86f89, #b94f70); }
+    .secondary { color: var(--deep); background: #f8e5e9; }
+    .tiny-heart { color: var(--pink); font-size: 27px; margin: 8px; }
+    .photo-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 24px auto; max-width: 500px; }
+    .photo {
+      background: white; padding: 9px 9px 13px; box-shadow: 0 7px 20px rgba(116,55,71,.12);
+      transform: rotate(-2deg); border-radius: 4px;
+    }
+    .photo:nth-child(2) { transform: rotate(2deg); }
+    .photo:nth-child(3) { transform: rotate(1deg); }
+    .photo:nth-child(4) { transform: rotate(-1deg); }
+    .photo img { width: 100%; aspect-ratio: 4 / 4.3; object-fit: cover; display: block; background: #f5dce2; color: #8e5362; font: 12px Arial,sans-serif; }
+    .photo span { display: block; padding-top: 9px; font-size: 13px; color: #7b515c; }
+    .letter { background: #fff5f1; border-left: 3px solid #e5a1b1; text-align: left; padding: 20px 22px; border-radius: 8px; margin: 22px auto; max-width: 530px; }
+    .letter p { font-size: 16px; }
+    .music { display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; }
+    .music-note { display: inline-block; animation: bob 1.4s ease-in-out infinite; }
+    @keyframes bob { 50% { transform: translateY(-4px) rotate(8deg); } }
+    .big-heart { font-size: clamp(58px, 14vw, 90px); color: var(--pink); animation: pulse 1.5s ease-in-out infinite; margin: 10px 0; }
+    @keyframes pulse { 50% { transform: scale(1.08); } }
+    footer { text-align: center; font: 12px Arial,sans-serif; color: #9d737e; margin-top: 20px; }
+    .hidden { display: none !important; }
+    @media (max-width: 420px) { .photo-grid { gap: 8px; } .photo { padding: 6px 6px 10px; } p { font-size: 16px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+  <main>
+    <div class="topline">a little something, just for you ♡</div>
+    <div class="progress" aria-label="Story progress"><span id="progress"></span></div>
+
+    <section class="card story" id="chapter1">
+      <div class="tiny-heart">♡</div>
+      <div class="eyebrow">Chapter one</div>
+      <h1>Hey, Gabby.</h1>
+      <p>I made you a little something. It isn't perfect, but it's from me, and I hope it makes you smile.</p>
+      <p class="small">Take your time. There's no rush. ♡</p>
+      <div class="button-row"><button class="primary" onclick="goTo(2)">Open your little surprise →</button></div>
+    </section>
+
+    <section class="card story hidden" id="chapter2">
+      <div class="eyebrow">Chapter two · little memories</div>
+      <h2>Some of my favorite moments have you in them.</h2>
+      <p>Pictures can't hold every feeling or every laugh, but they help me remember the little moments that mean a lot to me.</p>
+      <div class="photo-grid">
+        <div class="photo"><img src="photo1.jpg" alt="Replace with a favorite picture of us"><span>You</span></div>
+        <div class="photo"><img src="photo2.jpg" alt="Replace with another picture of us"><span>Are</span></div>
+        <div class="photo"><img src="photo3.jpg" alt="Replace with another picture of us"><span>So</span></div>
+        <div class="photo"><img src="photo4.jpg" alt="Replace with another picture of us"><span>Pretty</span></div>
+      </div>
+      <p class="small"></p>
+      <div class="button-row">
+        <button class="secondary" onclick="goTo(1)">← Back</button>
+        <button class="primary" onclick="goTo(3)">There's something I want to say →</button>
+      </div>
+    </section>
+
+    <section class="card story hidden" id="chapter3">
+      <div class="eyebrow">Chapter three · from my heart</div>
+      <h2>There's something about you.</h2>
+      <div class="letter">
+        <p>Being around you makes ordinary moments feel a little more special. I like the way you make me laugh, I feel like we click like puzzle pieces, the little things you do without even thinking about them, and how being with you can make a day better.</p>
+        <p>I don't need everything to be perfect. I just know I'd like to keep getting to know you, watching more Jersey Shore, making memories with you, and seeing where this goes.</p>
+        <p>And there's one question I've really wanted to ask you…</p>
+      </div>
+      <div class="music">
+        <span class="music-note">♫</span>
+        <button class="secondary" id="musicButton" onclick="toggleMusic()">Play our song</button>
+      </div>
+      <p class="small"></p>
+      <audio id="song" src="song.mp3" preload="none" loop></audio>
+      <div class="button-row">
+        <button class="secondary" onclick="goTo(2)">← Back</button>
+        <button class="primary" onclick="goTo(4)">Ask me the question ♡</button>
+      </div>
+    </section>
+
+    <section class="card story hidden" id="chapter4">
+      <div class="eyebrow">One last thing</div>
+      <div class="big-heart">♡</div>
+      <h2>Will you be my girlfriend?</h2>
+      <p>I'd really like to make more memories with you and see where this little story takes us.</p>
+      <p class="small">Whatever your answer, I wanted to ask you in a way that feels special. No pressure — just me being honest with you. ♡</p>
+      <div class="button-row"><button class="primary" onclick="showEnding()">Yes, I'd love to! ♡</button></div>
+      <div id="ending" class="hidden">
+        <div class="big-heart">♥</div>
+        <h2>Here's to our next chapter.</h2>
+        <p>You've made me really happy. I can't wait to make more memories with you. ♡</p>
+        <p class="small">Screenshot this if you want to keep it.</p>
+      </div>
+      <div class="button-row"><button class="secondary" onclick="goTo(3)">← Read my message again</button></div>
+    </section>
+
+    <footer>made with care, just for you ♡</footer>
+  </main>
+
+  <script>
+    let currentChapter = 1;
+    const progress = document.getElementById("progress");
+    const song = document.getElementById("song");
+    const musicButton = document.getElementById("musicButton");
+
+    function goTo(number) {
+      document.querySelectorAll(".story").forEach(section => section.classList.add("hidden"));
+      const next = document.getElementById("chapter" + number);
+      next.classList.remove("hidden");
+      // Restart the entrance animation each time a chapter opens.
+      next.style.animation = "none";
+      void next.offsetWidth;
+      next.style.animation = "";
+      currentChapter = number;
+      progress.style.width = (number * 25) + "%";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function toggleMusic() {
+      if (song.paused) {
+        try {
+          await song.play();
+          musicButton.textContent = "Pause our song ♫";
+        } catch (error) {
+          alert("Add a valid song.mp3 file beside index.html, then try again.");
+        }
+      } else {
+        song.pause();
+        musicButton.textContent = "Play our song";
+      }
+    }
+
+    function showEnding() {
+      document.getElementById("ending").classList.remove("hidden");
+      document.querySelector("#chapter4 .big-heart").textContent = "♥";
+      document.querySelector("#chapter4 .big-heart").scrollIntoView({ behavior: "smooth", block: "center" });
+      for (let i = 0; i < 18; i++) makeHeart(true);
+    }
+
+    function makeHeart(burst = false) {
+      const holder = document.getElementById("hearts");
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.textContent = ["♡", "♥", "✧"][Math.floor(Math.random() * 3)];
+      heart.style.left = Math.random() * 100 + "%";
+      heart.style.fontSize = (12 + Math.random() * 22) + "px";
+      heart.style.animationDuration = (burst ? 2.5 : 6 + Math.random() * 7) + "s";
+      holder.appendChild(heart);
+      setTimeout(() => heart.remove(), burst ? 3000 : 14000);
+    }
+    setInterval(() => makeHeart(false), 750);
+  </script>
+</body>
+</html>
